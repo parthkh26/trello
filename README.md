@@ -1,16 +1,78 @@
-# React + Vite
+# 📝 Trello Clone (React + Firebase)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack Trello-like task management application built using **React**, and **Firebase Authentication**.
 
-Currently, two official plugins are available:
+This project allows users to create boards, lists, and cards with persistent storage and secure authentication.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🔐 Authentication
+- Google Sign-In using Firebase Authentication
+- Protected access (only logged-in users can view boards)
 
-## Expanding the ESLint configuration
+### 📋 Boards
+- Create new boards
+- Boards stored per user
+- Data persists after refresh
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 📂 Lists
+- Create lists inside boards
+- Lists stored inside board documents
+- Persistent storage in Firestore
+
+### 🗂 Cards
+- Add cards inside lists
+- Edit card titles
+- Delete cards
+- Drag cards between lists
+
+---
+
+## 🏗 Project Structure
+
+```
+src/
+│
+├── components/
+│   └── Board/
+│       ├── BoardCard.jsx
+│       ├── List.jsx
+│       └── Card.jsx
+│
+├── pages/
+│   ├── Home.jsx
+│   └── Board.jsx
+│
+├── context/
+│   └── AuthContext.jsx
+│
+├── firebase/
+│   └── firebaseConfig.js
+│
+└── App.jsx
+```
+
+
+## 🔥 Firestore Database Structure
+
+```
+users/{userId}
+│
+└── boards/{boardId}
+    │
+    └── lists/{listId}
+        │
+        └── cards/{cardId}
+```
+
+### 📌 Structure Explanation
+
+- Each user has their own document inside `users`
+- Each user can create multiple `boards`
+- Each board contains multiple `lists`
+- Each list contains multiple `cards`
+- Data is isolated per user using Firebase Authentication UID
+
+
