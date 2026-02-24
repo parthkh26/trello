@@ -496,83 +496,122 @@ function Board() {
   }
 
   return (
-  <div
-    style={{
-      padding: "20px",
-      minHeight: "100vh",
-      backgroundColor: "#f4f5f7",
-    }}
-  >
-    <h2 style={{ marginBottom: "20px", color:"black" }}>Board</h2>
-
-    {/* 🔥 Add List Section at Top */}
     <div
       style={{
-        display: "flex",
-        gap: "10px",
-        marginBottom: "20px",
+        padding: "30px",
+        minHeight: "100vh",
+        backgroundColor: "#f5f6fa",
       }}
     >
-      <input
-        type="text"
-        placeholder="Enter new list title"
-        value={newListTitle}
-        onChange={(e) => setNewListTitle(e.target.value)}
-        style={{
-          padding: "8px",
-          borderRadius: "6px",
-          border: "1px solid #ccc",
-          width: "250px",
-        }}
-      />
-      <button
-        onClick={handleAddList}
-        style={{
-          backgroundColor: "#1976d2",
-          color: "white",
-          border: "none",
-          padding: "8px 14px",
-          borderRadius: "6px",
-          cursor: "pointer",
-        }}
-      >
-        Add List
-      </button>
-    </div>
+      {/* Header */}
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        marginBottom: "30px"
+      }}>
+        <h1 style={{ 
+          margin: 0, 
+          color: "#2c3e50",
+          fontSize: "28px"
+        }}>
+          Board
+        </h1>
+      </div>
 
-    {/* 🔥 Lists Section */}
-    <DndContext onDragEnd={handleDragEnd}>
-      <div
-        style={{
-          display: "flex",
-          gap: "20px",
-          alignItems: "flex-start",   // 🔥 Important for different card heights
-          overflowX: "auto",          // 🔥 Horizontal scroll like Trello
-        }}
-      >
-        {lists.map((list) => (
-          <div
-            key={list.id}
+      {/* Add List Section */}
+      <div style={{
+        backgroundColor: "#fff",
+        padding: "20px",
+        borderRadius: "12px",
+        boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
+        marginBottom: "24px",
+        maxWidth: "400px"
+      }}>
+        <h3 style={{ 
+          margin: "0 0 15px 0", 
+          color: "#333",
+          fontSize: "16px"
+        }}>
+          Add New List
+        </h3>
+        <div style={{ display: "flex", gap: "10px" }}>
+          <input
+            type="text"
+            placeholder="Enter list title..."
+            value={newListTitle}
+            onChange={(e) => setNewListTitle(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleAddList()}
             style={{
-              minWidth: "250px",
-              backgroundColor: "#ebecf0",
-              padding: "10px",
+              flex: 1,
+              padding: "12px 16px",
+              border: "2px solid #e0e0e0",
               borderRadius: "8px",
-              boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+              fontSize: "14px",
+              outline: "none",
+            }}
+          />
+          <button
+            onClick={handleAddList}
+            style={{
+              backgroundColor: "#3498db",
+              color: "white",
+              border: "none",
+              padding: "12px 24px",
+              borderRadius: "8px",
+              cursor: "pointer",
+              fontSize: "14px",
+              fontWeight: "500",
             }}
           >
-            <List
-              list={list}
-              onAddCard={handleAddCard}
-              onDeleteCard={handleDeleteCard}
-              onEditCard={handleEditCard}
-            />
-          </div>
-        ))}
+            Add List
+          </button>
+        </div>
       </div>
-    </DndContext>
-  </div>
-);
+
+      {/* Lists Section */}
+      <DndContext onDragEnd={handleDragEnd}>
+        <div
+          style={{
+            display: "flex",
+            gap: "20px",
+            alignItems: "flex-start",
+            overflowX: "auto",
+            paddingBottom: "20px",
+          }}
+        >
+          {lists.map((list) => (
+            <div
+              key={list.id}
+              style={{
+                minWidth: "280px",
+                backgroundColor: "#ebecf0",
+                padding: "16px",
+                borderRadius: "12px",
+                boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
+              }}
+            >
+              <List
+                list={list}
+                onAddCard={handleAddCard}
+                onDeleteCard={handleDeleteCard}
+                onEditCard={handleEditCard}
+              />
+            </div>
+          ))}
+          
+          {lists.length === 0 && (
+            <div style={{
+              color: "#888",
+              padding: "20px",
+              fontSize: "14px"
+            }}>
+              No lists yet. Create your first list above!
+            </div>
+          )}
+        </div>
+      </DndContext>
+    </div>
+  );
 }
 
 export default Board;

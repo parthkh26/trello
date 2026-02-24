@@ -3,11 +3,13 @@ import { useDraggable} from "@dnd-kit/core"
 function Card({ card, onDelete, onEdit}) {
     const [isEditing,setIsEditing] = useState(false)
     const [editText,setEditText] = useState("");
+    
     function handleSave(){
+        if (!editText.trim()) return;
         onEdit(card.id,editText);
         setIsEditing(false);
-
     }
+
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
             id: card.id,
     });
@@ -17,32 +19,32 @@ function Card({ card, onDelete, onEdit}) {
     {...listeners}
     {...attributes}
     style={{
-      backgroundColor: "white",
+      backgroundColor: "#ffffff",
       padding: "12px",
-      marginTop: "10px",
+      marginBottom: "8px",
       borderRadius: "8px",
-      boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+      boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
       transform: transform
         ? `translate(${transform.x}px, ${transform.y}px)`
         : undefined,
       cursor: "grab",
+      transition: "box-shadow 0.2s",
     }}
   >
     {!isEditing ? (
       <>
-        {/* Card Title */}
         <div
           style={{
-            marginBottom: "8px",
+            marginBottom: "10px",
             fontSize: "14px",
             wordBreak: "break-word",
-            color:"black",
+            color: "#172b4d",
+            lineHeight: "1.4",
           }}
         >
           {card.title}
         </div>
 
-        {/* Action Buttons */}
         <div
           style={{
             display: "flex",
@@ -52,14 +54,18 @@ function Card({ card, onDelete, onEdit}) {
         >
           <button
             onPointerDown={(e) => e.stopPropagation()}
-            onClick={() => setIsEditing(true)}
+            onClick={() => {
+                setEditText(card.title);
+                setIsEditing(true);
+            }}
             style={{
-              backgroundColor: "green",
+              backgroundColor: "#6b7280",
               border: "none",
-              padding: "4px 8px",
+              padding: "5px 10px",
               borderRadius: "4px",
               cursor: "pointer",
-              fontSize: "12px",
+              fontSize: "11px",
+              color: "white",
             }}
           >
             Edit
@@ -69,13 +75,13 @@ function Card({ card, onDelete, onEdit}) {
             onPointerDown={(e) => e.stopPropagation()}
             onClick={() => onDelete(card.id)}
             style={{
-              backgroundColor: "#e53935",
+              backgroundColor: "#ef4444",
               color: "white",
               border: "none",
-              padding: "4px 8px",
+              padding: "5px 10px",
               borderRadius: "4px",
               cursor: "pointer",
-              fontSize: "12px",
+              fontSize: "11px",
             }}
           >
             Delete
@@ -83,35 +89,55 @@ function Card({ card, onDelete, onEdit}) {
         </div>
       </>
     ) : (
-      <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
         <input
           type="text"
           value={editText}
           onPointerDown={(e) => e.stopPropagation()}
           onChange={(e) => setEditText(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && handleSave()}
           style={{
-            padding: "6px",
+            padding: "8px",
             borderRadius: "4px",
-            border: "1px solid #ccc",
+            border: "2px solid #0079bf",
             fontSize: "13px",
+            outline: "none",
           }}
         />
 
-        <button
-          onPointerDown={(e) => e.stopPropagation()}
-          onClick={handleSave}
-          style={{
-            backgroundColor: "#1976d2",
-            color: "white",
-            border: "none",
-            padding: "6px",
-            borderRadius: "4px",
-            cursor: "pointer",
-            fontSize: "12px",
-          }}
-        >
-          Save
-        </button>
+        <div style={{ display: "flex", gap: "6px" }}>
+          <button
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={handleSave}
+            style={{
+              backgroundColor: "#0079bf",
+              color: "white",
+              border: "none",
+              padding: "6px 12px",
+              borderRadius: "4px",
+              cursor: "pointer",
+              fontSize: "12px",
+              flex: 1,
+            }}
+          >
+            Save
+          </button>
+          <button
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={() => setIsEditing(false)}
+            style={{
+              backgroundColor: "#6b7280",
+              color: "white",
+              border: "none",
+              padding: "6px 12px",
+              borderRadius: "4px",
+              cursor: "pointer",
+              fontSize: "12px",
+            }}
+          >
+            Cancel
+          </button>
+        </div>
       </div>
     )}
   </div>
