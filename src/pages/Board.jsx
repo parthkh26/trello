@@ -503,7 +503,7 @@ function Board() {
       backgroundColor: "#f4f5f7",
     }}
   >
-    <h2 style={{ marginBottom: "20px" }}>Board</h2>
+    <h2 style={{ marginBottom: "20px", color:"black" }}>Board</h2>
 
     {/* 🔥 Add List Section at Top */}
     <div

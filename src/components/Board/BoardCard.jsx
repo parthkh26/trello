@@ -10,7 +10,7 @@ function BoardCard({ board, onView }) {
         
       }}
     >
-      <h3>{board.title}</h3>
+      <h3 style={{color:"black"}}>{board.title}</h3>
 
       <button onClick={() => onView(board.id)}>
         Click to see more

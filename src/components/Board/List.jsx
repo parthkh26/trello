@@ -25,7 +25,7 @@ function List({ list, onAddCard, onDeleteCard, onEditCard}) {
         minHeight: "150px",
       }}
     >
-      <h4>{list.title}</h4>
+      <h4 style={{color:"black"}}>{list.title}</h4>
       {list.cards.map((card) => (
         <Card key={card.id} card={card} onDelete={(cardId) => onDeleteCard(list.id, cardId)} onEdit={(cardId,title)=> onEditCard(list.id,cardId,title)}/>
       ))}

@@ -36,6 +36,7 @@ function Card({ card, onDelete, onEdit}) {
             marginBottom: "8px",
             fontSize: "14px",
             wordBreak: "break-word",
+            color:"black",
           }}
         >
           {card.title}
@@ -53,7 +54,7 @@ function Card({ card, onDelete, onEdit}) {
             onPointerDown={(e) => e.stopPropagation()}
             onClick={() => setIsEditing(true)}
             style={{
-              backgroundColor: "#f0f0f0",
+              backgroundColor: "green",
               border: "none",
               padding: "4px 8px",
               borderRadius: "4px",
